@@ -1,0 +1,250 @@
+/*
+ * Budget Notes styles.
+ * Only Obsidian's theme variables are used (no fixed colours),
+ * so light and dark themes both work.
+ */
+
+.budget-notes {
+	container-type: inline-size;
+	padding: var(--size-4-3) var(--size-4-4);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background-color: var(--background-primary);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Title line: name and month */
+.budget-notes-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: var(--size-4-2);
+	margin-bottom: var(--size-4-2);
+}
+
+.budget-notes-title {
+	font-size: var(--font-ui-large);
+	font-weight: var(--font-semibold);
+}
+
+.budget-notes-month {
+	color: var(--text-muted);
+}
+
+/* "Total monthly budget" and "Left to allocate" lines */
+.budget-notes-total,
+.budget-notes-left {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--size-4-2);
+	padding-block: var(--size-4-2);
+	font-weight: var(--font-semibold);
+}
+
+/* The total gets its own shaded strip so it isn't mistaken for a category */
+.budget-notes-total {
+	margin-block: var(--size-4-2);
+	padding-inline: var(--size-4-3);
+	border-radius: var(--radius-s);
+	background-color: var(--background-secondary);
+	font-size: var(--font-ui-medium);
+}
+
+.budget-notes-total .budget-notes-box {
+	font-weight: var(--font-semibold);
+}
+
+.budget-notes-left {
+	margin-top: var(--size-4-3);
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+.budget-notes-left.is-over .budget-notes-left-amount {
+	color: var(--text-error);
+}
+
+/* Needs / Wants / Savings sections */
+.budget-notes-group {
+	margin-top: var(--size-4-3);
+}
+
+.budget-notes-group-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--size-4-2);
+	padding-bottom: var(--size-2-2);
+	border-bottom: 1px solid var(--background-modifier-border);
+	font-weight: var(--font-semibold);
+}
+
+.budget-notes-group-sum {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-normal);
+}
+
+.budget-notes-empty {
+	padding-block: var(--size-2-3);
+	color: var(--text-faint);
+	font-size: var(--font-ui-small);
+}
+
+/* One category: name | slider | $ box | percent | lock */
+.budget-notes-row {
+	display: grid;
+	grid-template-columns: minmax(6em, 1.2fr) minmax(6em, 2fr) 8em 4em auto;
+	grid-template-areas: 'name slider amount percent lock';
+	align-items: center;
+	gap: var(--size-4-2);
+	padding-block: var(--size-2-3);
+}
+
+.budget-notes-name {
+	grid-area: name;
+	overflow-wrap: anywhere;
+}
+
+.budget-notes-slider {
+	grid-area: slider;
+	width: 100%;
+	min-width: 0;
+}
+
+.budget-notes-row .budget-notes-amount {
+	grid-area: amount;
+}
+
+.budget-notes-percent {
+	grid-area: percent;
+	text-align: right;
+	color: var(--text-muted);
+}
+
+.budget-notes-lock {
+	grid-area: lock;
+}
+
+.budget-notes-row.is-locked .budget-notes-name {
+	color: var(--text-muted);
+}
+
+/* "$ [ 512.50 ]" boxes */
+.budget-notes-amount {
+	display: flex;
+	align-items: center;
+	gap: var(--size-2-1);
+	min-width: 0;
+}
+
+.budget-notes-currency {
+	color: var(--text-muted);
+}
+
+.budget-notes-box {
+	width: 100%;
+	min-width: 0;
+	text-align: right;
+}
+
+.budget-notes-total .budget-notes-amount {
+	width: 9em;
+}
+
+.budget-notes .budget-notes-box.is-invalid,
+.budget-notes .budget-notes-name-box.is-invalid {
+	border-color: var(--text-error);
+	box-shadow: 0 0 0 1px var(--text-error);
+}
+
+/* Narrow screens (phones, narrow panes): two lines per category */
+@container (max-width: 480px) {
+	.budget-notes-row {
+		grid-template-columns: minmax(0, 1fr) 7.5em auto;
+		grid-template-areas:
+			'name percent lock'
+			'slider slider amount';
+	}
+}
+
+/* "Edit categories" / "Done" button, top right */
+.budget-notes-edit-toggle {
+	margin-left: auto;
+}
+
+/* Edit mode: name box | amount | up, down, delete */
+.budget-notes-edit-help {
+	margin-bottom: var(--size-4-2);
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+/* Two classes, so the narrow-screen layout below doesn't override it */
+.budget-notes-row.budget-notes-edit-row {
+	grid-template-columns: minmax(0, 1fr) 7em auto;
+	grid-template-areas: 'name amount controls';
+}
+
+.budget-notes-name-box {
+	grid-area: name;
+	width: 100%;
+	min-width: 0;
+}
+
+.budget-notes-edit-amount {
+	grid-area: amount;
+	text-align: right;
+	color: var(--text-muted);
+}
+
+.budget-notes-edit-controls {
+	grid-area: controls;
+	display: flex;
+	align-items: center;
+	gap: var(--size-2-1);
+}
+
+.budget-notes-add {
+	margin-top: var(--size-2-3);
+}
+
+/* Messages: read-only notice and problems */
+.budget-notes-notice,
+.budget-notes-error {
+	padding: var(--size-4-2) var(--size-4-3);
+	border-left: 3px solid var(--text-error);
+	border-radius: var(--radius-s);
+	background-color: var(--background-secondary);
+}
+
+.budget-notes-notice {
+	margin-bottom: var(--size-4-2);
+	border-left-color: var(--text-accent);
+}
+
+.budget-notes-notice ul,
+.budget-notes-error ul {
+	margin-block: var(--size-2-2);
+}
+
+.budget-notes-error-title {
+	font-weight: var(--font-semibold);
+	color: var(--text-error);
+}
+
+.budget-notes-error-help {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+/* Error line in the "New budget" window */
+.budget-notes-modal-error {
+	color: var(--text-error);
+}
+
+.budget-notes-modal-error:empty {
+	display: none;
+}

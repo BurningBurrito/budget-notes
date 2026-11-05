@@ -1,0 +1,30 @@
+{
+	"name": "budget-notes",
+	"version": "1.1.0",
+	"description": "Obsidian plugin: plan a budget in a note with one slider per category.",
+	"main": "main.js",
+	"type": "module",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"test": "rm -rf .test-build && esbuild src/*.test.ts --bundle --packages=external --platform=node --format=esm --outdir=.test-build --log-level=warning && node --test .test-build/*.test.js",
+		"test-vault": "npm run build && mkdir -p \"$HOME/budget-test-vault/.obsidian/plugins/budget-notes\" && cp manifest.json main.js styles.css \"$HOME/budget-test-vault/.obsidian/plugins/budget-notes/\" && echo \"Copied to the test vault. In Obsidian: turn Budget Notes off and on again to load it.\"",
+		"version": "node version-bump.mjs && git add manifest.json versions.json",
+		"lint": "eslint ."
+	},
+	"keywords": [],
+	"license": "MIT",
+	"devDependencies": {
+		"@eslint/js": "^9.39.4",
+		"@types/node": "^22.15.17",
+		"esbuild": "0.25.5",
+		"eslint": "^9.39.4",
+		"eslint-plugin-obsidianmd": "^0.4.0",
+		"globals": "^17.6.0",
+		"jiti": "^2.6.1",
+		"obsidian": "1.14.4",
+		"typescript": "^5.8.3",
+		"typescript-eslint": "^8.59.1",
+		"yaml": "2.8.4"
+	}
+}

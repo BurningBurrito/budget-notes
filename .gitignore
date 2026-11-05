@@ -1,0 +1,49 @@
+# Budget Planner – .gitignore
+#
+# PRIVACY: this repo is meant to be PUBLIC. Private notes must never get in.
+# This file is an ALLOWLIST: everything is ignored unless it is listed
+# below with a "!" in front.
+#
+# - New code goes in src/ (already allowed).
+# - To share a new top-level file, add a "!/filename" line.
+# - Before every commit, check what Git sees:  git status --short --ignored
+# - Never use "git add -f" (it skips this file's protection).
+
+# 1. Ignore everything at the top level of this folder.
+/*
+
+# 2. Allow only the plugin's code and config files.
+!/.gitignore
+!/.editorconfig
+!/.npmrc
+!/src/
+!/README.md
+!/LICENSE
+!/manifest.json
+!/package.json
+!/package-lock.json
+!/tsconfig.json
+!/esbuild.config.mjs
+!/eslint.config.mts
+!/version-bump.mjs
+!/versions.json
+!/styles.css
+
+# 3. Never these, anywhere, even inside allowed folders.
+# Notes and other Obsidian files (only README.md is allowed).
+# Not shared on purpose (decided 2026-11-05): AGENTS.md and .github/ (not needed by the plugin).
+*.md
+!/README.md
+*.canvas
+*.base
+*.excalidraw
+.obsidian/
+# Claude's project instructions (personal setup details) – decided 2026-11-04: never shared.
+CLAUDE.md
+# Plugin settings, backups, secrets, editor and Claude settings.
+data.json
+*.bak
+.env
+.env.*
+.claude/
+.vscode/
